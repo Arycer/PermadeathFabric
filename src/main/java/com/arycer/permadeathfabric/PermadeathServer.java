@@ -12,11 +12,11 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.MinecraftServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.arycer.permadeathfabric.difficultyChanges.day1.WorldGenerationRules;
 
 @Environment(EnvType.SERVER)
 public class PermadeathServer implements DedicatedServerModInitializer {
-    public static final String MOD_ID = "PermadeathFabric";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final Logger LOGGER = LogManager.getLogger("PermadeathFabric");
     public static MinecraftServer server;
 
     private static void CacheServer() {
@@ -30,10 +30,13 @@ public class PermadeathServer implements DedicatedServerModInitializer {
         CommandRegistrationCallback.EVENT.register(BanOnDeathCommand::register);
     }
 
+    WorldGenerationRules worldGenerationRules = new WorldGenerationRules();
+
     public static PermadeathConfig config = new PermadeathConfig();
 
     @Override
     public void onInitializeServer() {
+        worldGenerationRules.removeAncientDebris();
         LOGGER.info("PermadeathFabric is loading");
         config.load();
         RegisterCommands();
