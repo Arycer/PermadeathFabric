@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.arycer.permadeathfabric.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinMobSpawning",
+    "MixinSpiderEffects",
+    "MixinServerPlayerEntity",
+    "MixinServerWorld",
+    "MixinSleepManager"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
