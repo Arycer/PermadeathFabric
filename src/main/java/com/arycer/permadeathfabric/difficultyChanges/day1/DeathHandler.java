@@ -117,7 +117,7 @@ public class DeathHandler {
 
         // add an action bar message for all players
         var msg = Text.literal("Quedan " + ticksToTime(properties.getThunderTime()) + " de tormenta").setStyle(Style.EMPTY.withColor(Formatting.GRAY));
-        world.getPlayers().forEach(player -> player.sendMessage(msg, true));
+        Objects.requireNonNull(server).getPlayerManager().broadcast(msg, false);
     }
 
     public void playerDeath(ServerPlayerEntity player) {
