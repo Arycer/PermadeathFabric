@@ -16,6 +16,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
 import net.minecraft.world.level.ServerWorldProperties;
 import java.util.Objects;
 
@@ -89,7 +90,8 @@ public class DeathHandler {
 
     private void DeathTrainManager(ServerPlayerEntity player) {
         var server = player.getServer(); // Get the server instance
-        var world = player.getWorld(); // Get the player's world
+        var world = Objects.requireNonNull(server).getWorld(World.OVERWORLD); // Get the world
+        assert world != null;
         var registryKey = world.getRegistryKey(); // Get the world's registry key
         var serverWorld = Objects.requireNonNull(server).getWorld(registryKey); // Get the server's world
         var properties = (ServerWorldProperties) Objects.requireNonNull(serverWorld).getLevelProperties(); // Get the world's properties
@@ -117,7 +119,7 @@ public class DeathHandler {
 
         // add an action bar message for all players
         var msg = Text.literal("Quedan " + ticksToTime(properties.getThunderTime()) + " de tormenta").setStyle(Style.EMPTY.withColor(Formatting.GRAY));
-        Objects.requireNonNull(server).getPlayerManager().broadcast(msg, false);
+        for (ServerPlayerEntity p : Objects.requireNonNull(server).getPlayerManager().getPlayerList()) p.sendMessage(msg, false);
     }
 
     public void playerDeath(ServerPlayerEntity player) {
