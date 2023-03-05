@@ -12,15 +12,16 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.MinecraftServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.arycer.permadeathfabric.difficultyChanges.day1.WorldGenerationRules;
+import com.arycer.permadeathfabric.difficultyChanges.day1.RemoveNaturalNetherite;
 
 @Environment(EnvType.SERVER)
-public class PermadeathServer implements DedicatedServerModInitializer {
+public class Initializer implements DedicatedServerModInitializer {
+    public static final String MOD_ID = "permadeathfabric";
     public static final Logger LOGGER = LogManager.getLogger("PermadeathFabric");
     public static MinecraftServer server;
 
     private static void CacheServer() {
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> PermadeathServer.server = server);
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> Initializer.server = server);
     }
 
     private static void RegisterCommands() {
@@ -30,13 +31,13 @@ public class PermadeathServer implements DedicatedServerModInitializer {
         CommandRegistrationCallback.EVENT.register(BanOnDeathCommand::register);
     }
 
-    WorldGenerationRules worldGenerationRules = new WorldGenerationRules();
+    RemoveNaturalNetherite removeNaturalNetherite = new RemoveNaturalNetherite();
 
     public static PermadeathConfig config = new PermadeathConfig();
 
     @Override
     public void onInitializeServer() {
-        worldGenerationRules.removeAncientDebris();
+        removeNaturalNetherite.register();
         LOGGER.info("PermadeathFabric is loading");
         config.load();
         RegisterCommands();

@@ -1,6 +1,6 @@
 package com.arycer.permadeathfabric.difficultyChanges.day10;
 
-import com.arycer.permadeathfabric.PermadeathServer;
+import com.arycer.permadeathfabric.Initializer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.SleepManager;
@@ -13,7 +13,7 @@ public class SleepingBehaviour {
     public void setMinSleepingPlayers(CallbackInfoReturnable<Boolean> cir, SleepManager sleepManager) {
         if (!cir.getReturnValue()) return;
 
-        MinecraftServer server = PermadeathServer.server;
+        MinecraftServer server = Initializer.server;
 
         var playerSleepingCount = sleepManager.getSleeping();
 

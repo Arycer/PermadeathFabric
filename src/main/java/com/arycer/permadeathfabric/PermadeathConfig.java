@@ -44,7 +44,7 @@ public class PermadeathConfig extends Config {
 
     public static void reload() {
         LOGGER.info("Reloading config");
-        PermadeathServer.config.save();
-        PermadeathServer.config.load();
+        Initializer.config.save();
+        Initializer.config.load();
     }
 }
