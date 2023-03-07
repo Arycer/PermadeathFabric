@@ -119,7 +119,7 @@ public class DeathHandler {
 
         // add an action bar message for all players
         var msg = Text.literal("Quedan " + ticksToTime(properties.getThunderTime()) + " de tormenta").setStyle(Style.EMPTY.withColor(Formatting.GRAY));
-        for (ServerPlayerEntity p : Objects.requireNonNull(server).getPlayerManager().getPlayerList()) p.sendMessage(msg, false);
+        for (ServerPlayerEntity p : Objects.requireNonNull(server).getPlayerManager().getPlayerList()) p.sendMessage(msg, true);
     }
 
     public void playerDeath(ServerPlayerEntity player) {
@@ -138,6 +138,4 @@ public class DeathHandler {
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
-
-
 }

@@ -22,9 +22,7 @@ public class SleepingBehaviour {
 
         ci.cancel();
 
-        var msg = Text.literal("¡No puedes dormir durante la tormenta!"); // Create the message
-        msg = msg.setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.RED))); // Set the message's style
-
+        var msg = Text.literal("¡No puedes dormir durante la tormenta!").setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.RED)));
         player.sendMessage(msg, false);
     }
 
@@ -37,11 +35,7 @@ public class SleepingBehaviour {
 
         if (properties.isThundering()) return;
 
-        var msg_1 = Text.literal("El jugador ").setStyle(Style.EMPTY.withColor(Formatting.WHITE)); // Create the first part of the message
-        var msg_2 = Text.literal(player.getEntityName()).setStyle(Style.EMPTY.withColor(Formatting.YELLOW)); // Create the second part of the message
-        var msg_3 = Text.literal(" ha ido a dormir").setStyle(Style.EMPTY.withColor(Formatting.WHITE)); // Create the second part of the message
-        var msg = msg_1.append(msg_2).append(msg_3); // Append the three parts of the message
-
+        var msg = player.getDisplayName().copy().append(Text.literal(" fue a dormir").setStyle(Style.EMPTY.withColor(Formatting.YELLOW)));
         Objects.requireNonNull(server).getPlayerManager().broadcast(msg, false); // Broadcast the message to all players
     }
 }

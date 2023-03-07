@@ -4,11 +4,14 @@
   "package": "com.arycer.permadeathfabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinChickenEntity",
+    "MixinMobEntity",
     "MixinMobSpawning",
+    "MixinPhantomEntity",
     "MixinServerPlayerEntity",
     "MixinServerWorld",
     "MixinSleepManager",
-    "MixinSpiderEffects"
+    "MixinSpiderEntity"
   ],
   "client": [
   ],
