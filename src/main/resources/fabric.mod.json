@@ -13,17 +13,20 @@
   "environment": "server",
   "entrypoints": {
     "server": [
-      "com.arycer.permadeathfabric.Initializer"
+      "me.arycer.permadeathfabric.Main"
     ]
   },
 
-          "mixins": [
-        "permadeathfabric.mixins.json"
-      ],
-    
+  "mixins": [
+    "mixins/global.mixins.json",
+    "mixins/day1.mixins.json",
+    "mixins/day10.mixins.json",
+    "mixins/day20.mixins.json"
+  ],
+
   "depends": {
     "fabricloader": ">=0.14.17",
-              "fabric": "*",
-          "minecraft": "1.19.3"
+    "fabric": "*",
+    "minecraft": "1.19.3"
   }
 }
