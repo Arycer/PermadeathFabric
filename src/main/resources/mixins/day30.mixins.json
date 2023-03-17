@@ -4,6 +4,7 @@
   "package": "me.arycer.permadeathfabric.DifficultyChanges.Day30.Mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinBatEntity",
     "MixinLivingEntity",
     "MixinMobEntity",
     "MixinSkeletonEntity",
