@@ -21,12 +21,14 @@
     "mixins/global.mixins.json",
     "mixins/day1.mixins.json",
     "mixins/day10.mixins.json",
-    "mixins/day20.mixins.json"
+    "mixins/day20.mixins.json",
+    "mixins/day25.mixins.json",
+    "mixins/day30.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.14.17",
     "fabric": "*",
-    "minecraft": "1.19.3"
+    "minecraft": "1.19.4"
   }
 }

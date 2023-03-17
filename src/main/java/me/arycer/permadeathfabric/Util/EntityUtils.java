@@ -2,16 +2,21 @@ package me.arycer.permadeathfabric.Util;
 
 import com.google.common.collect.Iterables;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class EntityUtils {
-    public static <T extends MobEntity> T MobNotDropEquipment(T mob) {
+    public static <T extends MobEntity> T notDropEquipment(T mob) {
         mob.setEquipmentDropChance(EquipmentSlot.HEAD, 0);
         mob.setEquipmentDropChance(EquipmentSlot.CHEST, 0);
         mob.setEquipmentDropChance(EquipmentSlot.LEGS, 0);
@@ -22,7 +27,7 @@ public class EntityUtils {
         return mob;
     }
 
-    public static <T extends MobEntity> void AddRandomEffectsFromList (T mob, HashMap<StatusEffect, Integer> effectList, int minEffects, int maxEffects) {
+    public static <T extends MobEntity> void addRandomEffectsFromList(T mob, HashMap<StatusEffect, Integer> effectList, int minEffects, int maxEffects) {
         List<StatusEffect> effects = new ArrayList<>();
         int numEffects = (int) (Math.random() * (maxEffects - minEffects + 1) + minEffects);
 
@@ -42,5 +47,10 @@ public class EntityUtils {
             mob.addStatusEffect(new StatusEffectInstance(effect, duration, amplifier, ambient, showParticles, showIcon));
         }
 
+    }
+
+    public static <T extends LivingEntity> void setMaxHealth(T mob, double maxHealth, boolean heal) {
+        Objects.requireNonNull(mob.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(maxHealth);
+        if (heal) mob.setHealth(mob.getMaxHealth());
     }
 }

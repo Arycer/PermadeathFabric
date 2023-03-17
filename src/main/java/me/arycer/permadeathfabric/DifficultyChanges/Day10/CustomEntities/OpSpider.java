@@ -2,13 +2,10 @@ package me.arycer.permadeathfabric.DifficultyChanges.Day10.CustomEntities;
 
 import me.arycer.permadeathfabric.Util.EntityUtils;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.SpiderEntity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class OpSpider {
     private static final HashMap<StatusEffect, Integer> effectList = new HashMap<StatusEffect, Integer>() {{
@@ -23,6 +20,6 @@ public class OpSpider {
     }};
 
     public static void summon(SpiderEntity spider) {
-        EntityUtils.AddRandomEffectsFromList(spider, effectList, 1, 3);
+        EntityUtils.addRandomEffectsFromList(spider, effectList, 1, 3);
     }
 }

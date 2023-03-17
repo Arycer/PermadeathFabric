@@ -33,11 +33,11 @@ public class RemoveNaturalNetherite {
     private static void modifyLootTables() {
         LootTableEvents.REPLACE.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BASTION_TREASURE.equals(id)) {
-                return lootManager.getTable(new Identifier(Main.MOD_ID, "chests/bastion_treasure"));
+                return lootManager.getTable(new Identifier(Main.MOD_ID, "global/bastion_treasure"));
             } else if (id.equals(BASTION_OTHER)) {
-                return lootManager.getTable(new Identifier(Main.MOD_ID, "chests/bastion_other"));
+                return lootManager.getTable(new Identifier(Main.MOD_ID, "global/bastion_other"));
             } else if (id.equals(BASTION_HOGLIN_STABLE)) {
-                return lootManager.getTable(new Identifier(Main.MOD_ID, "chests/bastion_hoglin_stable"));
+                return lootManager.getTable(new Identifier(Main.MOD_ID, "global/bastion_hoglin_stable"));
             }
             return null;
         });

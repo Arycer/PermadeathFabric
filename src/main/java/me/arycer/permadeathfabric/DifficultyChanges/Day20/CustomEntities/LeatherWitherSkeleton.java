@@ -4,11 +4,13 @@ import me.arycer.permadeathfabric.Util.EntityUtils;
 import me.arycer.permadeathfabric.Util.NbtUtils;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.WitherSkeletonEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class LeatherWitherSkeleton {
     public static WitherSkeletonEntity create (WitherSkeletonEntity skeleton) {
@@ -21,8 +23,8 @@ public class LeatherWitherSkeleton {
         skeleton.equipStack(EquipmentSlot.LEGS, NbtUtils.MakeUnbreakable(NbtUtils.DyeStack(new ItemStack(Items.LEATHER_LEGGINGS), Color.RED.getRGB())));
         skeleton.equipStack(EquipmentSlot.FEET, NbtUtils.MakeUnbreakable(NbtUtils.DyeStack(new ItemStack(Items.LEATHER_BOOTS), Color.RED.getRGB())));
 
-        skeleton.setHealth(skeleton.getMaxHealth() * 2);
+        EntityUtils.setMaxHealth(skeleton, skeleton.getMaxHealth() * 2, true);
 
-        return EntityUtils.MobNotDropEquipment(skeleton);
+        return EntityUtils.notDropEquipment(skeleton);
     }
 }

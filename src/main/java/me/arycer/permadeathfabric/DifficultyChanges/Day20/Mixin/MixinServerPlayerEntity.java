@@ -1,13 +1,19 @@
 package me.arycer.permadeathfabric.DifficultyChanges.Day20.Mixin;
 
+import com.mojang.datafixers.util.Either;
 import me.arycer.permadeathfabric.DifficultyChanges.Day20.SleepingBehaviour;
 import me.arycer.permadeathfabric.Util.ModConfig;
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerPlayerEntity.class)
 public class MixinServerPlayerEntity {

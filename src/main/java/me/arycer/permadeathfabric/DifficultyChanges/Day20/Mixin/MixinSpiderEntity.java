@@ -15,8 +15,7 @@ public class MixinSpiderEntity {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init (EntityType entityType, World world, CallbackInfo ci) {
         int day = ModConfig.getServerDay();
-        if (day < 20) return;
+        if (day < 20 || day >= 25) return;
         OpSpiderJockey.summon((SpiderEntity) (Object) this);
     }
-
 }

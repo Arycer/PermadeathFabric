@@ -15,6 +15,6 @@ public class DiamondSkeleton {
         skeleton.equipStack(EquipmentSlot.FEET, NbtUtils.MakeUnbreakable(new ItemStack(Items.DIAMOND_BOOTS)));
         skeleton.equipStack(EquipmentSlot.MAINHAND, NbtUtils.MakeUnbreakable(new ItemStack(Items.BOW)));
 
-        return EntityUtils.MobNotDropEquipment(skeleton);
+        return EntityUtils.notDropEquipment(skeleton);
     }
 }

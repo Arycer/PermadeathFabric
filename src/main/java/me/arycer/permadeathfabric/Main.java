@@ -19,14 +19,17 @@ public class Main implements DedicatedServerModInitializer {
     public static ModConfig config = new ModConfig();
 
     private static void CacheServer() {
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> Main.server = server);
+        ServerLifecycleEvents.SERVER_STARTED.register((MinecraftServer server) -> {
+            Main.server = server;
+        });
     }
 
     @Override
     public void onInitializeServer() {
+        CacheServer();
+
         LOGGER.info("PermadeathFabric is loading");
         config.load();
-        CacheServer();
 
         RemoveNaturalNetherite.register();
         CommandLoader.registerCommands();

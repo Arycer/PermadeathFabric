@@ -19,8 +19,8 @@ public class ChainWitherSkeleton {
         skeleton.equipStack(EquipmentSlot.LEGS, NbtUtils.MakeUnbreakable(new ItemStack(Items.CHAINMAIL_LEGGINGS)));
         skeleton.equipStack(EquipmentSlot.FEET, NbtUtils.MakeUnbreakable(new ItemStack(Items.CHAINMAIL_BOOTS)));
 
-        skeleton.setHealth(skeleton.getMaxHealth() * 2);
+        EntityUtils.setMaxHealth(skeleton, skeleton.getMaxHealth() * 2, true);
 
-        return EntityUtils.MobNotDropEquipment(skeleton);
+        return EntityUtils.notDropEquipment(skeleton);
     }
 }

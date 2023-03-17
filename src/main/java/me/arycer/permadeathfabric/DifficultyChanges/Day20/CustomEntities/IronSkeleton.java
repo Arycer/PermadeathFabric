@@ -19,6 +19,6 @@ public class IronSkeleton {
         skeleton.equipStack(EquipmentSlot.LEGS, NbtUtils.MakeUnbreakable(new ItemStack(Items.IRON_LEGGINGS)));
         skeleton.equipStack(EquipmentSlot.FEET, NbtUtils.MakeUnbreakable(new ItemStack(Items.IRON_BOOTS)));
 
-        return EntityUtils.MobNotDropEquipment(skeleton);
+        return EntityUtils.notDropEquipment(skeleton);
     }
 }
