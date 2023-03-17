@@ -8,6 +8,7 @@
     "MixinCreeperEntity",
     "MixinLivingEntity",
     "MixinMobEntity",
+    "MixinRaiderEntity",
     "MixinSkeletonEntity",
     "MixinSpawnGroup",
     "MixinSquidEntity",
