@@ -1,34 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "permadeathfabric",
+  "id": "permadeath",
   "version": "${version}",
-
-  "name": "Permadeathfabric",
+  "name": "Permadeath",
   "description": "",
   "authors": [],
-  "contact": {},
-
-  "license": "MIT",
-
+  "contact": {
+    "repo": "https://github.com/conta/Permadeath"
+  },
+  "license": "All-Rights-Reserved",
   "environment": "server",
   "entrypoints": {
     "server": [
-      "me.arycer.permadeathfabric.Main"
+      "me.arycer.permadeath.Main"
     ]
   },
-
   "mixins": [
-    "mixins/global.mixins.json",
-    "mixins/day1.mixins.json",
-    "mixins/day10.mixins.json",
-    "mixins/day20.mixins.json",
-    "mixins/day25.mixins.json",
-    "mixins/day30.mixins.json"
+    "mixin/day1.mixins.json"
   ],
-
   "depends": {
-    "fabricloader": ">=0.14.17",
+    "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "1.19.4"
+    "minecraft": "${minecraft_version}"
   }
 }
