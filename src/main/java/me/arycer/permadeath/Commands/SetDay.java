@@ -1,7 +1,6 @@
 package me.arycer.permadeath.Commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import me.arycer.permadeath.Main;
@@ -11,8 +10,6 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-
-import java.util.Objects;
 
 import static me.arycer.permadeath.Util.ServerUtil.createText;
 

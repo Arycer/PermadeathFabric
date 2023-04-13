@@ -1,9 +1,9 @@
 package me.arycer.permadeath.Util;
 
 import me.arycer.permadeath.Main;
+import me.lortseam.completeconfig.api.ConfigEntry;
 import me.lortseam.completeconfig.data.Config;
 import me.lortseam.completeconfig.data.ConfigOptions;
-import me.lortseam.completeconfig.api.ConfigEntry;
 
 public class ModConfig extends Config {
     public ModConfig() {

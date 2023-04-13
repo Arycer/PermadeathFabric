@@ -10,8 +10,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.util.Objects;
-
 import static me.arycer.permadeath.Util.ServerUtil.createText;
 
 public class GetDay {
