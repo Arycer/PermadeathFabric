@@ -24,7 +24,7 @@ public class GetDay {
         ServerCommandSource source = ctx.getSource();
         int day = ModConfig.getServerDay();
 
-        Text msg = createText(String.format("El día actual es %d.", day), Formatting.GRAY);
+        Text msg = createText(String.format("El día actual es %d.", day), Formatting.GRAY, false);
         source.sendFeedback(msg, false);
 
         return 1;

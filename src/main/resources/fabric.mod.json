@@ -16,6 +16,7 @@
     ]
   },
   "mixins": [
+    "mixin/global.mixins.json",
     "mixin/day1.mixins.json"
   ],
   "depends": {

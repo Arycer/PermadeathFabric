@@ -29,7 +29,7 @@ public class SetDay {
         int day = IntegerArgumentType.getInteger(ctx, "day");
         ModConfig.setServerDay(day);
 
-        Text msg = createText(String.format("Se ha establecido el día actual a %d.", day), Formatting.GRAY);
+        Text msg = createText(String.format("Se ha establecido el día actual a %d.", day), Formatting.GRAY, false);
         source.sendFeedback(msg, true);
 
         return 1;

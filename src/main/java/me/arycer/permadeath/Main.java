@@ -1,5 +1,6 @@
 package me.arycer.permadeath;
 
+import me.arycer.permadeath.DifficultyChanges.Global.NetherModifications;
 import me.arycer.permadeath.Util.ModConfig;
 import me.arycer.permadeath.Util.ServerUtil;
 import net.fabricmc.api.DedicatedServerModInitializer;
@@ -23,6 +24,7 @@ public class Main implements DedicatedServerModInitializer {
         LOGGER.info("Permadeath está cargando. Idea original de ElRichMC, port a Fabric por Arycer.");
         config.load();
 
+        NetherModifications.register();
         ServerUtil.registerCommands();
     }
 }

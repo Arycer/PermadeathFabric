@@ -23,7 +23,7 @@ public class ReloadConfig {
     private static int run(CommandContext<ServerCommandSource> ctx) {
         ServerCommandSource source = ctx.getSource();
 
-        Text msg = createText("Configuración recargada.", Formatting.GRAY);
+        Text msg = createText("Configuración recargada.", Formatting.GRAY, false);
         source.sendFeedback(msg, true);
 
         return 1;

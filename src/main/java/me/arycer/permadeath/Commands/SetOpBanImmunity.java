@@ -27,9 +27,9 @@ public class SetOpBanImmunity {
         ServerCommandSource source = ctx.getSource();
 
         boolean enabled = BoolArgumentType.getBool(ctx, "enabled");
-        ModConfig.setBanOnDeath(enabled);
+        ModConfig.setOpBanImmunity(enabled);
 
-        Text msg = createText(String.format("La inmunidad de los operadores al ban está %s.", enabled ? "activada" : "desactivada"), Formatting.GRAY);
+        Text msg = createText(String.format("La inmunidad de los operadores al ban está %s.", enabled ? "activada" : "desactivada"), Formatting.GRAY, false);
         source.sendFeedback(msg, true);
 
         return 1;

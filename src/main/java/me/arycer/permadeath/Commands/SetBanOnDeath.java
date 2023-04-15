@@ -29,7 +29,7 @@ public class SetBanOnDeath {
         boolean enabled = BoolArgumentType.getBool(ctx, "enabled");
         ModConfig.setBanOnDeath(enabled);
 
-        Text msg = createText(String.format("El ban al morir está %s.", enabled ? "activado" : "desactivado"), Formatting.GRAY);
+        Text msg = createText(String.format("El ban al morir está %s.", enabled ? "activado" : "desactivado"), Formatting.GRAY, false);
         source.sendFeedback(msg, true);
 
         return 1;
