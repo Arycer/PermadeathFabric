@@ -2,11 +2,13 @@ package me.arycer.permadeath.DifficultyChanges.Global;
 
 import me.arycer.permadeath.Main;
 import me.arycer.permadeath.Util.ModConfig;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.level.ServerWorldProperties;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static me.arycer.permadeath.Util.ServerUtil.*;
 
@@ -85,5 +87,14 @@ public class DeathTrain {
         minutes %= 60;
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public static void deathTrainDisablesSleeping(CallbackInfo ci, ServerPlayerEntity player) {
+        ServerWorldProperties properties = getServerWorldProperties();
+        if (!properties.isThundering()) return;
+
+        Text msg = createText("¡No puedes dormir durante la tormenta!", Formatting.RED, false);
+        player.sendMessage(msg, false);
+        ci.cancel();
     }
 }

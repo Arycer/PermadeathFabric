@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.arycer.permadeath.DifficultyChanges.Day10.Mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinServerPlayerEntity",
+    "MixinSleepManager",
+    "MixinSpawnGroup",
+    "MixinSpiderEntity"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
