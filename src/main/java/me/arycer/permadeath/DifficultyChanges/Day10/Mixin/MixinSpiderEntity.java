@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinSpiderEntity {
 
     @Inject(at = @At("TAIL"), method = "<init>")
-    public void tick(CallbackInfo ci) {
+    public void init(CallbackInfo ci) {
         int day = ModConfig.getServerDay();
         if (day < 10 || day >= 20) return;
 

@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -20,6 +22,12 @@ public class ServerUtil {
 
     public static Text createText(String text, Formatting color, boolean bold) {
         return Text.literal(text).setStyle(Style.EMPTY.withColor(color).withBold(bold));
+    }
+
+    public static Text addHoverText(Text text, Text hoverText) {
+        HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText);
+        ((MutableText) text).setStyle(text.getStyle().withHoverEvent(hoverEvent));
+        return text;
     }
 
     public static void registerCommands() {

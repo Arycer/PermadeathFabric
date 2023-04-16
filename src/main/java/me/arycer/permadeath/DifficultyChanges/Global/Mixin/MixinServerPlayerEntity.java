@@ -1,4 +1,4 @@
-package me.arycer.permadeath.DifficultyChanges.Global.mixin;
+package me.arycer.permadeath.DifficultyChanges.Global.Mixin;
 
 import me.arycer.permadeath.DifficultyChanges.Global.DeathHandler;
 import net.minecraft.server.network.ServerPlayerEntity;

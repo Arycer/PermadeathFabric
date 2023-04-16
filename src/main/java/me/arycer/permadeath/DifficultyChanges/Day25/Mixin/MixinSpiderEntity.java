@@ -1,6 +1,6 @@
-package me.arycer.permadeath.DifficultyChanges.Day20.Mixin;
+package me.arycer.permadeath.DifficultyChanges.Day25.Mixin;
 
-import me.arycer.permadeath.DifficultyChanges.Day20.CustomMobs.CustomSpider;
+import me.arycer.permadeath.DifficultyChanges.Day25.CustomMobs.CustomSpider;
 import me.arycer.permadeath.Util.ModConfig;
 import net.minecraft.entity.mob.SpiderEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SpiderEntity.class)
 public class MixinSpiderEntity {
-    @Inject(at = @At("TAIL"), method = "<init>")
-    public void tick(CallbackInfo ci) {
+    @Inject(at = @At("RETURN"), method = "<init>")
+    public void init(CallbackInfo ci) {
         int day = ModConfig.getServerDay();
-        if (day < 20 || day >= 25) return;
+        if (day < 25) return;
 
         CustomSpider.modifySpider((SpiderEntity) (Object) this);
     }
