@@ -4,16 +4,22 @@ import me.arycer.permadeath.Commands.*;
 import me.arycer.permadeath.Main;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionTypes;
 import net.minecraft.world.level.ServerWorldProperties;
+
+import java.util.stream.Stream;
 
 public class ServerUtil {
     public static void cacheServer() {
@@ -64,5 +70,13 @@ public class ServerUtil {
         assert serverWorld != null;
 
         return serverWorld;
+    }
+
+    public static Stream<ServerPlayerEntity> getDimensionPlayers(Identifier dimension) {
+        return Main.server.getPlayerManager().getPlayerList().stream().filter(player -> isInDimension(player, dimension));
+    }
+
+    public static boolean isInDimension(Entity entity, Identifier dimension) {
+        return entity.world.getDimensionEntry().matchesId(dimension);
     }
 }

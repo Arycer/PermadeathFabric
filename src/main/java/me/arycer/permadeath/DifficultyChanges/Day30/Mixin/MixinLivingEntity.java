@@ -3,16 +3,17 @@ package me.arycer.permadeath.DifficultyChanges.Day30.Mixin;
 import me.arycer.permadeath.DifficultyChanges.Day30.CustomMobs.CustomSkeletons;
 import me.arycer.permadeath.DifficultyChanges.Day30.LootTables;
 import me.arycer.permadeath.Main;
+import me.arycer.permadeath.Util.EntityUtils;
 import me.arycer.permadeath.Util.ModConfig;
+import me.arycer.permadeath.Util.NbtUtils;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.BatEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,6 +22,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,37 +31,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.HashMap;
+
 import static me.arycer.permadeath.Util.ServerUtil.addHoverText;
 import static me.arycer.permadeath.Util.ServerUtil.createText;
 
 @Mixin(LivingEntity.class)
 public class MixinLivingEntity {
-    @Inject(at = @At("RETURN"), method = "getLootTable")
+    @Inject(at = @At("RETURN"), method = "getLootTable", cancellable = true)
     public void getLootTable(CallbackInfoReturnable<Identifier> cir) {
         int day = ModConfig.getServerDay();
         if (day < 30) return;
 
-        if (!(((LivingEntity) (Object) this) instanceof MobEntity mob)) return;
-        LootTables.register(cir, mob);
-    }
-
-    @Inject(at = @At("RETURN"), method = "<init>")
-    public void init(EntityType<? extends MobEntity> entityType, World world, CallbackInfo ci) {
-        int day = ModConfig.getServerDay();
-        if (day < 30) return;
-
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (entityType.equals(EntityType.CREEPER)) {
-            NbtCompound tag = new NbtCompound();
-            tag.putBoolean("powered", true);
-            entity.readCustomDataFromNbt(tag);
-        } else if (entityType.equals(EntityType.PILLAGER)) {
-            ItemStack crossbow = new ItemStack(Items.CROSSBOW);
-            crossbow.addEnchantment(Enchantments.QUICK_CHARGE, 10);
-            entity.equipStack(EquipmentSlot.MAINHAND, crossbow);
-
-            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1));
-        }
+        if (!(entity instanceof MobEntity mob)) return;
+        LootTables.register(cir, mob);
     }
 
     @Inject(at = @At("HEAD"), method = "tryUseTotem", cancellable = true)
@@ -107,7 +93,6 @@ public class MixinLivingEntity {
             blaze.updatePosition(entity.getX(), entity.getY(), entity.getZ());
             blaze.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, -1, 2));
             entity.remove(Entity.RemovalReason.DISCARDED);
-            converted = true;
         } else if (entity instanceof SquidEntity) {
             GuardianEntity guardian = new GuardianEntity(EntityType.GUARDIAN, world);
             world.spawnEntity(guardian);
@@ -115,7 +100,6 @@ public class MixinLivingEntity {
             guardian.updatePosition(entity.getX(), entity.getY(), entity.getZ());
             guardian.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, -1, 2));
             entity.remove(Entity.RemovalReason.DISCARDED);
-            converted = true;
         } else if (entity instanceof SkeletonEntity skeleton && !entity.hasVehicle() && !skeleton.hasCustomName()) {
             int random = entity.getRandom().nextInt(5) + 1;
 
@@ -147,6 +131,59 @@ public class MixinLivingEntity {
                 witherSkeleton.setCustomName(name);
                 entity.remove(Entity.RemovalReason.DISCARDED);
             }
+        } else if (entity instanceof CreeperEntity creeper) {
+            NbtCompound tag = new NbtCompound();
+            tag.putBoolean("powered", true);
+            creeper.readCustomDataFromNbt(tag);
+        } else if (entity instanceof PillagerEntity pillager) {
+            ItemStack crossbow = new ItemStack(Items.CROSSBOW);
+            crossbow.addEnchantment(Enchantments.QUICK_CHARGE, 5);
+            pillager.equipStack(EquipmentSlot.MAINHAND, crossbow);
+            pillager.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, -1));
+        } else if (entity instanceof ZombifiedPiglinEntity piglin) {
+            piglin.equipStack(EquipmentSlot.HEAD, NbtUtils.makeUnbreakable(new ItemStack(Items.DIAMOND_HELMET)));
+            piglin.equipStack(EquipmentSlot.CHEST, NbtUtils.makeUnbreakable(new ItemStack(Items.DIAMOND_CHESTPLATE)));
+            piglin.equipStack(EquipmentSlot.LEGS, NbtUtils.makeUnbreakable(new ItemStack(Items.DIAMOND_LEGGINGS)));
+            piglin.equipStack(EquipmentSlot.FEET, NbtUtils.makeUnbreakable(new ItemStack(Items.DIAMOND_BOOTS)));
+            EntityUtils.notDropEquipment(piglin);
+        } else if (entity instanceof IronGolemEntity golem) {
+            golem.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, -1, 4));
+        } else if (entity instanceof EndermanEntity enderman) {
+            enderman.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, -1, 2));
+        } else if (entity instanceof SilverfishEntity silverfish) {
+            final HashMap<StatusEffect, Integer> EFFECT_LIST = new HashMap<>(){{
+                put(StatusEffects.SPEED, 3);
+                put(StatusEffects.STRENGTH, 4);
+                put(StatusEffects.JUMP_BOOST, 5);
+                put(StatusEffects.GLOWING, 1);
+                put(StatusEffects.REGENERATION, 4);
+                put(StatusEffects.RESISTANCE, 3);
+                put(StatusEffects.INVISIBILITY, 1);
+                put(StatusEffects.SLOW_FALLING, 1);
+            }};
+
+            EntityUtils.addListEffects(silverfish, EFFECT_LIST, 5, 5);
         }
+        converted = true;
+    }
+
+    @Inject(at = @At("HEAD"), method = "onDeath")
+    public void onDeath(CallbackInfo ci) {
+        int day = ModConfig.getServerDay();
+        if (day < 30) return;
+
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (!(entity instanceof ShulkerEntity)) return;
+
+        World world = entity.getEntityWorld();
+        BlockPos pos = entity.getBlockPos();
+
+        TntEntity tnt = new TntEntity(EntityType.TNT, world);
+        tnt.updatePosition(pos.getX(), pos.getY(), pos.getZ());
+        tnt.setFuse(80);
+
+        tnt.setCustomName(createText("Shulker Explosivo", Formatting.RED, false));
+
+        world.spawnEntity(tnt);
     }
 }

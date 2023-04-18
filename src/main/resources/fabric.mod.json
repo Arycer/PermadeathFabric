@@ -21,7 +21,8 @@
     "mixin/day10.mixins.json",
     "mixin/day20.mixins.json",
     "mixin/day25.mixins.json",
-    "mixin/day30.mixins.json"
+    "mixin/day30.mixins.json",
+    "mixin/end.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

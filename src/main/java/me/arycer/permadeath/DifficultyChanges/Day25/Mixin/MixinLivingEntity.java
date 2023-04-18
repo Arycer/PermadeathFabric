@@ -60,7 +60,8 @@ public class MixinLivingEntity {
         int day = ModConfig.getServerDay();
         if (day < 25) return;
 
-        if (!(((LivingEntity) (Object) this) instanceof MobEntity mob)) return;
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (!(entity instanceof MobEntity mob)) return;
         NetheriteMobs.register(cir, mob);
     }
 }

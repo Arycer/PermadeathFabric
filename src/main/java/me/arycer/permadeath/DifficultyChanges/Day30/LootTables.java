@@ -14,6 +14,7 @@ public class LootTables {
         put(EntityType.MAGMA_CUBE, new Identifier(Main.MOD_ID, "empty"));
         put(EntityType.GHAST, new Identifier(Main.MOD_ID, "empty"));
         put(EntityType.CAVE_SPIDER, new Identifier("minecraft", "entities/cave_spider"));
+        put(EntityType.SHULKER, new Identifier(Main.MOD_ID, "day30/shulker"));
     }};
 
     public static void register(CallbackInfoReturnable<Identifier> cir, MobEntity entity) {

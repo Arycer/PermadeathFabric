@@ -59,9 +59,9 @@ public class DeathTrain {
 
         Text msg;
         if (properties.getThunderTime() > 1) {
-            msg = createText(String.format("Quedan %s de tormenta.", ticksToTime(properties.getThunderTime())), Formatting.GRAY, false);
+            msg = createText(String.format("Quedan %s de tormenta", ticksToTime(properties.getThunderTime())), Formatting.GRAY, false);
         } else {
-            msg = createText("La tormenta ha cesado.", Formatting.GRAY, false);
+            msg = createText("La tormenta ha cesado", Formatting.GRAY, false);
         }
 
         Main.server.getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(msg, true));

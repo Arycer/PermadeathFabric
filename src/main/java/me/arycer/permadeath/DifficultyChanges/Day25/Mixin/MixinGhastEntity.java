@@ -4,10 +4,13 @@ import me.arycer.permadeath.Util.EntityUtils;
 import me.arycer.permadeath.Util.ModConfig;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.world.dimension.DimensionTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static me.arycer.permadeath.Util.ServerUtil.isInDimension;
 
 @Mixin(GhastEntity.class)
 public class MixinGhastEntity {
@@ -17,6 +20,7 @@ public class MixinGhastEntity {
         if (day < 25) return;
 
         GhastEntity ghast = (GhastEntity) (Object) this;
+        if (!isInDimension(ghast, DimensionTypes.THE_NETHER_ID)) return;
 
         int random = ghast.getRandom().nextInt(21) + 40;
         EntityUtils.setMaxHealth(ghast, random, true);
